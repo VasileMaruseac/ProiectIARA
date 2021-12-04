@@ -140,32 +140,42 @@
     
     const callOrar = async () => {
       // const result = await axios.get(`https://orar.usv.ro/orar/mobil/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=da&back=&rand=0.15784193803221158`);
-      const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://orar.usv.ro/orar/mobil/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=da&back=&rand=0.15784193803221158`);
+      // const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://orar.usv.ro/orar/mobil/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=da&back=&rand=0.15784193803221158`);
       // const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://dexonline.ro/definitie/casa/json`);
+      const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://orar.usv.ro/orar/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=nu&back=&an=21_22&sem=1&rand=0.14471128444264925`);
       alert("Result orar: " + JSON.stringify(result));
       let html = result.data;
       let found = false;
+
+      //  if(html.includes('<form')){
+      //   html = html.split('<form')[1];
+      //   found = true;
+      //   html = html.split('</form>')[0];
+      //   // if(html.includes('</form>')){
+      //   // } else {
+      //   //   html = html.split('</form>')[0];
+      //   // }
+      // }
       
-      if(html.includes('<table>')){
-        html = html.split('<table>')[1];
-        found = true;
-        if(html.includes('</table>')){
-          html = html.split('</table>')[0];
-        } else {
-          html = html.split('</TABLE>')[0];
-        }
-      } else if(html.includes('<TABLE>')){
+      // if(html.includes('<table>')){
+      //   html = html.split('<table>')[1];
+      //   found = true;
+      //   if(html.includes('</table>')){
+      //     html = html.split('</table>')[0];
+      //   } else {
+      //     html = html.split('</TABLE>')[0];
+      //   }
+      // } else 
+      if(html.includes('<TABLE>')){
+        // incepe cu <TABLE> si se termina cu </table>
         html = html.split('<TABLE>')[1];
         found = true;
-        if(html.includes('</table>')){
-          html = html.split('</table>')[0];
-        } else {
-          html = html.split('</TABLE>')[0];
-        }
+            html = html.split('</table>')[0];
       }
       console.log("146: ", typeof html, html);
-      console.log("126:", result.data.split('<table>')[1])
-      const tabel = `<table style="margin-left: auto; margin-right: auto; margin-top: auto;">${html}</table>`;
+      // console.log("126:", result.data.split('<table>')[1])
+      const tabel = `<table style="margin: auto;>${html}</table>`;
+      // const form = `<form${html}</form>`
       
       if(found) {
         const scene = document.getElementById("scene");
