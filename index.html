@@ -105,26 +105,27 @@
 
     
     const capture = async () => {
-      const webcamElement = document.getElementById('webcam');
-      const canvas = document.getElementById("canvas");
-      canvas.getContext('2d').drawImage(webcamElement, 0, 0, canvas.width, canvas.height);
-   	  let image_data_url = canvas.toDataURL('image/jpeg');
-      var messagesRef = await firebase.database().ref('Checking');
-      await uploadimage(image_data_url);
-      alert("Uploaded image")
+      await callOrar();
+      // const webcamElement = document.getElementById('webcam');
+      // const canvas = document.getElementById("canvas");
+      // canvas.getContext('2d').drawImage(webcamElement, 0, 0, canvas.width, canvas.height);
+   	  // let image_data_url = canvas.toDataURL('image/jpeg');
+      // var messagesRef = await firebase.database().ref('Checking');
+      // await uploadimage(image_data_url);
+      // alert("Uploaded image")
       
-      var url = `https://script.google.com/macros/s/AKfycbxebhtQBjtNfGMO_3Bium-SuIB4Bs6YLxamDwOIgfvC/exec?callback=resultServer&caller=Vasi`;
-      // Make an AJAX call to Google Script
-      try{
-        const result = await jQuery.ajax({
-          crossDomain: true,
-          url: url,
-          method: "GET",
-          dataType: "jsonp"
-        });
-      } catch (err) {
-        console.log("97: ", err);
-      }
+      // var url = `https://script.google.com/macros/s/AKfycbxebhtQBjtNfGMO_3Bium-SuIB4Bs6YLxamDwOIgfvC/exec?callback=resultServer&caller=Vasi`;
+      // // Make an AJAX call to Google Script
+      // try{
+      //   const result = await jQuery.ajax({
+      //     crossDomain: true,
+      //     url: url,
+      //     method: "GET",
+      //     dataType: "jsonp"
+      //   });
+      // } catch (err) {
+      //   console.log("97: ", err);
+      // }
       
     };
     
@@ -164,14 +165,12 @@
       }
       console.log("146: ", typeof html, html);
       console.log("126:", result.data.split('<table>')[1])
-      const tabel = `<table></table>`;
+      const tabel = `<table style="margin-left: auto; margin-right: auto; margin-top: auto;">${html}</table>`;
       
       if(found) {
         const scene = document.getElementById("scene");
         const entity = document.createElement("a-entity");
-        entity.style.position = "0 0 0";
-        entity.htmlembed = true;
-        entity.innerHTML = result.data
+        entity.innerHTML = tabel
         console.log("151: ", entity)
         
         scene.appendChild(entity);
