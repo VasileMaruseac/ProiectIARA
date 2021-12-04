@@ -353,16 +353,21 @@
           const keys = Object.keys(sali);
           console.log("355: ", keys);
           alert('KEYS: ' + JSON.stringify(keys));
-          await callOrar();
+          for(let i=0; i<keys.length; i++){
+            if(result.includes(keys[i])){
+              await callOrar(sali[keys[i]]);
+              break;
+            }
+          }
         }
         
     }
     
-    const callOrar = async () => {
+    const callOrar = async (idSala) => {
       // const result = await axios.get(`https://orar.usv.ro/orar/mobil/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=da&back=&rand=0.15784193803221158`);
       // const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://orar.usv.ro/orar/mobil/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=da&back=&rand=0.15784193803221158`);
       // const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://dexonline.ro/definitie/casa/json`);
-      const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://orar.usv.ro/orar/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=nu&back=&an=21_22&sem=1&rand=0.14471128444264925`);
+      const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://orar.usv.ro/orar/vizualizare/orarSPG.php?ID=${idSala}&mod=sala&mod2=vizual&print=nu&back=&an=21_22&sem=1&rand=0.14471128444264925`);
       alert("Result orar: " + JSON.stringify(result));
       let html = result.data;
       let found = false;
