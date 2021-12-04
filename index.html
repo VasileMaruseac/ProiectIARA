@@ -347,7 +347,7 @@
     
     async function resultServer(e) {
         console.log("56", e);
-        const result = e.result;
+        const result = e.result.replace(/ /g, '');
         console.log("114: ", result);
         alert("Text: "+ result)
         await callOrar();
@@ -381,6 +381,8 @@
         
         scene.appendChild(entity);
         console.log("153: ", scene);
+
+        setTimeout(()=> {scene.removeChild(entity)}, 2000)
       }   
     }
 
