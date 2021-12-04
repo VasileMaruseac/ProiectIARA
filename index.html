@@ -174,8 +174,10 @@
       }
       console.log("146: ", typeof html, html);
       // console.log("126:", result.data.split('<table>')[1])
-      const tabel = `<table style="margin: auto;>${html}</table>`;
-      // const form = `<form${html}</form>`
+      let tabel = `<table style="margin: auto; transform: scale(0.6); margin-top: 20%;">${html}</table>`;
+      // tabel = tabel.split('<ul>').join('').split('</ul>').join('').split('<li>').join('').split('</li>').join('');
+              // const form = `<form${html}</form>`
+              console.log("180: ", tabel)
       
       if(found) {
         const scene = document.getElementById("scene");
