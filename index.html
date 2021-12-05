@@ -350,7 +350,6 @@
         if(!result.includes("C209")){
           const keys = Object.keys(sali);
           let found = false;
-          console.log("355: ", keys);
           for(let i=0; i<keys.length; i++){
             if(result.includes(keys[i])){
               found = true;
@@ -380,21 +379,19 @@
       }
       // console.log("146: ", typeof html, html);
       let tabel = `<table style="transform: scale(0.25) translate(-350px, -650px) ">${html}</table>`;
-    console.log("384: ", tabel)
       
       if(found) {
         const scene = document.getElementById("scene");
         const entity = document.createElement("a-entity");
-        entity.innerHTML = tabel
-        
+        entity.innerHTML = tabel;     
         scene.appendChild(entity);
       
-        // setTimeout(()=> {scene.removeChild(entity)}, 5000)
+        setTimeout(()=> {scene.removeChild(entity)}, 5000)
       }   
     }
 
-    const Tip =() => { }
-    const UnTip = () =>{}
+    const Tip =() => {}
+    const UnTip = () => {}
     
     
   </script>
@@ -435,13 +432,13 @@
       <button class="say-hi-button">SAY HI!</button>
     </div>
     <a-scene embedded arjs vr-mode-ui="enabled: false;" id="scene">
-      <a-marker preset="hiro">
+      <a-marker-camera preset="hiro">
         <a-entity
           position="0 0 0"
           scale="0.05 0.05 0.05"
           gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
         ></a-entity>
-      </a-marker>
+      </a-marker-camera>
       <a-marker preset='kanji'>
         <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
       </a-marker>
