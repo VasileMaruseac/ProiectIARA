@@ -267,15 +267,10 @@
 	    webcamElement.srcObject = stream;
     }
           
-    window.onload =async  function () {
-      await openWebcam()
-      document
-        .querySelector(".say-hi-button")
+    window.onload = function () {
+      openWebcam();
+      document.querySelector(".get-orar")
         .addEventListener("click", function () {
-          // here you can change also a-scene or a-entity properties, like
-          // changing your 3D model source, size, position and so on
-          // or you can just open links, trigger actions...
-          // alert("Hi there!");
           capture();
         });
     };
@@ -301,35 +296,20 @@
     }
 
     //  uploading file in storage
-    async function uploadimage(base64){
+    async function uploadImage(base64){
       var storage = firebase.storage();
       const file = b64toBlob(base64.split(';base64,')[1]);
       var storageref=storage.ref();
       var thisref=storageref.child("image/png").child("test.png").put(file);
     }
-
-    // Function to get get form values
-    function getInputVal(id){
-      return document.getElementById(id).value;
-    }
-        
-    // Save message to firebase database
-    function saveMessage(url){
-      var newMessageRef = messagesRef.push();
-      newMessageRef.set({
-      imageurl:url,
-      });
-    }
-
     
     const capture = async () => {
-    //  await  callOrar(sali['C204'])
       const webcamElement = document.getElementById('webcam');
       const canvas = document.getElementById("canvas");
       canvas.getContext('2d').drawImage(webcamElement, 0, 0, canvas.width, canvas.height);
    	  let image_data_url = canvas.toDataURL('image/jpeg');
-      var messagesRef = await firebase.database().ref('Checking');
-      await uploadimage(image_data_url);
+      // var messagesRef = await firebase.database().ref('Checking');
+      await uploadImage(image_data_url);
       alert("Uploaded image")
       
       var url = `https://script.google.com/macros/s/AKfycbxebhtQBjtNfGMO_3Bium-SuIB4Bs6YLxamDwOIgfvC/exec?callback=resultServer&caller=Vasi`;
@@ -341,58 +321,53 @@
           method: "GET",
           dataType: "jsonp"
         });
-      } catch (err) {
-      }  
+      } catch (err) {}  
     };
     
     async function resultServer(e) {
-        const result = e.result.replace(/ /g, '');
-        alert("Text: "+ result);
-        if(!result.includes("C209")){
-          const keys = Object.keys(sali);
-          let found = false;
-          for(let i=0; i<keys.length; i++){
-            if(result.includes(keys[i])){
-              found = true;
-              await callOrar(sali[keys[i]]);
-              break;
-            }
-          }
-          if(!found) {
-            alert('No good text' + result);
+      const result = e.result.replace(/ /g, '');
+      alert("Text: "+ result);
+      if(!result.includes("C209")){
+        const keys = Object.keys(sali);
+        let found = false;
+        for(let i=0; i<keys.length; i++){
+          if(result.includes(keys[i])){
+            found = true;
+            await callOrar(sali[keys[i]]);
+            break;
           }
         }
+        if(!found) {
+          alert('No good text' + result);
+        }
+      }
     }
     
     const callOrar = async (idSala) => {
-      // const result = await axios.get(`https://orar.usv.ro/orar/mobil/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=da&back=&rand=0.15784193803221158`);
-      // const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://orar.usv.ro/orar/mobil/vizualizare/orarSPG.php?ID=25&mod=sala&mod2=vizual&print=da&back=&rand=0.15784193803221158`);
-      // const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://dexonline.ro/definitie/casa/json`);
       const result = await axios.get(`https://cors-anywhere.herokuapp.com/https://orar.usv.ro/orar/vizualizare/orarSPG.php?ID=${idSala}&mod=sala&mod2=vizual&print=nu&back=&an=21_22&sem=1&rand=0.14471128444264925`);
       let html = result.data;
-      let found = false;
+      // let found = false;
     
       if(html.includes('<TABLE>')){
         // incepe cu <TABLE> si se termina cu </table>
         html = html.split('<TABLE>')[1];
-        found = true;
-            html = html.split('</table>')[0];
+        // found = true;
+        html = html.split('</table>')[0];
       }
-      // console.log("146: ", typeof html, html);
       let tabel = `<table style="transform: scale(0.25) translate(-350px, -650px) ">${html}</table>`;
       
-      if(found) {
+      // if(found) {
         const scene = document.getElementById("scene");
         const entity = document.createElement("a-entity");
         entity.innerHTML = tabel;     
         scene.appendChild(entity);
       
         setTimeout(()=> {scene.removeChild(entity)}, 5000)
-      }   
+      // }   
     }
 
-    const Tip =() => {}
-    const UnTip = () => {}
+    const Tip =() => {} // pt a elimina niste erori din consola de la orar
+    const UnTip = () => {} // pt a elimina niste erori din consola de la orar
     
     
   </script>
@@ -409,14 +384,14 @@
       z-index: 10;
     }
 
-    .say-hi-button {
+    .get-orar {
       padding: 0.25em;
       border-radius: 4px;
       border: none;
       background: white;
       color: black;
       width: 4em;
-      height: 2em;
+      height: 3em;
     }
     .zile {
       background-color: yellow;
@@ -426,14 +401,13 @@
     }
   </style>
   <body style="margin : 0px; overflow: hidden;">
-  <canvas id="canvas" width="1280" height="720" style="display: none;"></canvas>
-  <video id="webcam" width="1280" height="720" autoplay playsinline style="display: none;"></video>
-    <!--<video id="webcam" autoplay playsinline style="display: none;"></video>-->
+    <canvas id="canvas" width="1280" height="720" style="display: none;"></canvas>
+    <video id="webcam" width="1280" height="720" autoplay playsinline style="display: none;"></video>
     <div class="buttons">
-      <button class="say-hi-button">SAY HI!</button>
+      <button class="get-orar">Obtine orar</button>
     </div>
     <a-scene embedded arjs vr-mode-ui="enabled: false;" id="scene">
-      <a-marker preset="hiro">
+      <!-- <a-marker preset="hiro">
         <a-entity
           position="0 0 0"
           scale="0.05 0.05 0.05"
@@ -442,7 +416,7 @@
       </a-marker>
       <a-marker preset='kanji'>
         <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
-      </a-marker>
+      </a-marker> -->
       <a-marker type='pattern' url='./pattern-C209.patt'>
         <!-- <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box> -->
         <a-image src="./C209orar.JPG"></a-image>
