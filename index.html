@@ -7,6 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase.js"></script>
+  <!-- <script src="https://apis.google.com/js/api.js"></script> -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyAjso9FrgHIB1iDxtTUSP_49tchXkdrLC8",
@@ -301,6 +302,7 @@
       const file = b64toBlob(base64.split(';base64,')[1]);
       var storageref=storage.ref();
       var thisref=storageref.child("image/png").child("test.png").put(file);
+      // TODO: Try to upload directly to google drive instead of firebase -> In functia din app script nu o sa mai am nevoie sa iau fisierul din firebase
     }
     
     const capture = async () => {
@@ -308,7 +310,6 @@
       const canvas = document.getElementById("canvas");
       canvas.getContext('2d').drawImage(webcamElement, 0, 0, canvas.width, canvas.height);
    	  let image_data_url = canvas.toDataURL('image/jpeg');
-      // var messagesRef = await firebase.database().ref('Checking');
       await uploadImage(image_data_url);
       alert("Uploaded image")
       
@@ -326,7 +327,7 @@
     
     async function resultServer(e) {
       const result = e.result.replace(/ /g, '');
-      alert("Text: "+ result);
+      alert("Text: " + result);
       if(!result.includes("C209")){
         const keys = Object.keys(sali);
         let found = false;
@@ -419,7 +420,7 @@
       </a-marker> -->
       <a-marker type='pattern' url='./pattern-C209.patt'>
         <!-- <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box> -->
-        <a-image src="./C209orar.JPG"></a-image>
+        <a-image src="./C209orar.JPG" side="back"></a-image>
         <!-- <a-assets>
           <img src="./C209orar.JPG">
         </a-assets> -->
