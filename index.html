@@ -347,6 +347,7 @@
     
     async function resultServer(e) {
         const result = e.result.replace(/ /g, '');
+        alert("Text: ", result);
         if(!result.includes("C209")){
           const keys = Object.keys(sali);
           let found = false;
