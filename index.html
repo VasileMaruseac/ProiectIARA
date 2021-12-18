@@ -7,7 +7,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase.js"></script>
-  <!-- <script src="https://apis.google.com/js/api.js"></script> -->
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="https://apis.google.com/js/client:plusone.js" type="application/javascript"></script>
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyAjso9FrgHIB1iDxtTUSP_49tchXkdrLC8",
@@ -274,6 +275,18 @@
         .addEventListener("click", function () {
           capture();
         });
+      gapi.load('auth2', function() {
+          console.log('loadAuth2()');
+          auth2 = gapi.auth2.init({
+              client_id: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
+          });
+
+          authInstance = gapi.auth2.getAuthInstance();
+          authInstance.isSignedIn.listen(function () {
+              console.log('authUpdate()');
+              console.log(arguments);
+          });
+      });
     };
     
     const b64toBlob = (b64Data, contentType = 'image/png', sliceSize = 512) => {
@@ -302,7 +315,89 @@
       const file = b64toBlob(base64.split(';base64,')[1]);
       console.log("303: ", file);
       console.log("304: ", JSON.stringify(file))
-      console.log("305: ", URL.createObjectURL(file));
+      // const objectURL = URL.createObjectURL(file)
+      // console.log("305: ", objectURL);
+
+      // // gapi.savetodrive.render('savetodrive-div', {
+      // //   src: objectURL,
+      // //   filename: 'save-to-drive.csv',
+      // //   sitename: 'Example'
+      // // });
+
+      // const boundary = '-------314159265358979323846';
+      // const delimiter = "\r\n--" + boundary + "\r\n";
+      // const close_delim = "\r\n--" + boundary + "--";
+
+      // var contentType = 'image/png';
+      // var metadata = {
+      //   'title': 'img',
+      //   'mimeType': contentType
+      // };
+
+      // // var base64Data = btoa(reader.result);
+      // var multipartRequestBody =
+      //   delimiter +
+      //   'Content-Type: application/json\r\n\r\n' +
+      //   JSON.stringify(metadata) +
+      //   delimiter +
+      //   'Content-Type: ' + contentType + '\r\n' +
+      //   'Content-Transfer-Encoding: base64\r\n' +
+      //   '\r\n' +
+      //   file +
+      //   close_delim;
+
+      // console.log("GAPI: ", gapi)
+      // console.log("GAPI CLIENT: ", gapi.client)
+
+      // var request = gapi.client.request({
+      //   // 'path': '/upload/drive/v2/files',
+      //   'path': 'https://drive.google.com/drive/u/0/my-drive',
+      //   'method': 'POST',
+      //   'params': {'uploadType': 'multipart'},
+      //   'headers': {
+      //     'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+      //   },
+      //   'body': multipartRequestBody
+      // });
+      // console.log("323: ", request)
+
+
+
+var metadata = {
+    'name': 'imgToRec', // Filename at Google Drive
+    'mimeType': 'image/png', // mimeType at Google Drive
+    // 'parents': ['### folder ID ###'], // Folder ID at Google Drive
+};
+
+console.log("GAPI", gapi)
+console.log("AUTH: ", gapi.auth);
+// console.log("GET TOKEN: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,  gapi.auth.getToken())
+console.log("TOKEN: ", gapi.auth.getToken().access_token)
+var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+var form = new FormData();
+form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+form.append('file', file);
+
+var xhr = new XMLHttpRequest();
+xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+xhr.responseType = 'json';
+xhr.onload = () => {
+    console.log(xhr.response.id); // Retrieve uploaded file ID.
+};
+xhr.send(form);
+
+
+
+
+
+      // if (!callback) {
+      //   callback = function(file) {
+      //     console.log(file)
+      //   };
+      // }
+      // request.execute(callback);
+
       // const formData = new FormData();
       // formData.append('image', file);
       // console.log(formData)
