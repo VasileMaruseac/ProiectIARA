@@ -331,75 +331,75 @@
       // //   sitename: 'Example'
       // // });
 
-      // const boundary = '-------314159265358979323846';
-      // const delimiter = "\r\n--" + boundary + "\r\n";
-      // const close_delim = "\r\n--" + boundary + "--";
+      const boundary = '-------314159265358979323846';
+      const delimiter = "\r\n--" + boundary + "\r\n";
+      const close_delim = "\r\n--" + boundary + "--";
 
-      // var contentType = 'image/png';
-      // var metadata = {
-      //   'title': 'img',
-      //   'mimeType': contentType
-      // };
+      var contentType = 'image/png';
+      var metadata = {
+        'title': 'img',
+        'mimeType': contentType
+      };
 
-      // // var base64Data = btoa(reader.result);
-      // var multipartRequestBody =
-      //   delimiter +
-      //   'Content-Type: application/json\r\n\r\n' +
-      //   JSON.stringify(metadata) +
-      //   delimiter +
-      //   'Content-Type: ' + contentType + '\r\n' +
-      //   'Content-Transfer-Encoding: base64\r\n' +
-      //   '\r\n' +
-      //   file +
-      //   close_delim;
+      // var base64Data = btoa(reader.result);
+      var multipartRequestBody =
+        delimiter +
+        'Content-Type: application/json\r\n\r\n' +
+        JSON.stringify(metadata) +
+        delimiter +
+        'Content-Type: ' + contentType + '\r\n' +
+        'Content-Transfer-Encoding: base64\r\n' +
+        '\r\n' +
+        file +
+        close_delim;
 
-      // console.log("GAPI: ", gapi)
-      // console.log("GAPI CLIENT: ", gapi.client)
+      console.log("GAPI: ", gapi)
+      console.log("GAPI CLIENT: ", gapi.client)
 
-      // var request = gapi.client.request({
-      //   // 'path': '/upload/drive/v2/files',
-      //   'path': 'https://drive.google.com/drive/u/0/my-drive',
-      //   'method': 'POST',
-      //   'params': {'uploadType': 'multipart'},
-      //   'headers': {
-      //     'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
-      //   },
-      //   'body': multipartRequestBody
-      // });
-      // console.log("323: ", request)
+      var request = gapi.client.request({
+        // 'path': '/upload/drive/v2/files',
+        'path': 'https://drive.google.com/drive/u/0/my-drive',
+        'method': 'POST',
+        'params': {'uploadType': 'multipart'},
+        'headers': {
+          'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+        },
+        'body': multipartRequestBody
+      });
+      console.log("323: ", request)
 
 
 
-var metadata = {
-    'name': 'imgToRec', // Filename at Google Drive
-    'mimeType': 'image/png', // mimeType at Google Drive
-    // 'parents': ['### folder ID ###'], // Folder ID at Google Drive
-};
+// var metadata = {
+//     'name': 'imgToRec', // Filename at Google Drive
+//     'mimeType': 'image/png', // mimeType at Google Drive
+//     // 'parents': ['### folder ID ###'], // Folder ID at Google Drive
+// };
 
-console.log("GAPI", gapi)
-console.log("AUTH: ", gapi.auth);
-console.log("383: ", gapi.auth2)
-console.log("384: ", gapi.auth2.getAuthInstance())
-console.log("385: ", gapi.auth2.getAuthInstance().currentUser)
-console.log("386: ", gapi.auth2.getAuthInstance().currentUser.get())
-console.log("387: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse())
-console.log("388: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token)
+// console.log("GAPI", gapi)
+// console.log("AUTH: ", gapi.auth);
+// console.log("383: ", gapi.auth2)
+// console.log("384: ", gapi.auth2.getAuthInstance())
+// console.log("385: ", gapi.auth2.getAuthInstance().currentUser)
+// console.log("386: ", gapi.auth2.getAuthInstance().currentUser.get())
+// console.log("387: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse())
+// console.log("388: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token)
 
-// console.log("GET TOKEN: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,  gapi.auth.getToken())
-// console.log("TOKEN: ", gapi.auth.getToken().access_token)
-var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
-var form = new FormData();
-form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-form.append('file', file);
+// // console.log("GET TOKEN: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,  gapi.auth.getToken())
+// // console.log("TOKEN: ", gapi.auth.getToken().access_token)
+// var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
+// var form = new FormData();
+// form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+// form.append('file', file);
 
-var xhr = new XMLHttpRequest();
-xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
-xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-xhr.responseType = 'json';
-xhr.onload = () => {
-    console.log(xhr.response.id); // Retrieve uploaded file ID.
-};
-xhr.send(form);
+// var xhr = new XMLHttpRequest();
+// xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id');
+// xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+// xhr.responseType = 'json';
+// xhr.onload = () => {
+//     console.log(xhr.response.id); // Retrieve uploaded file ID.
+// };
+// xhr.send(form);
 
 
 
