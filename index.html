@@ -288,6 +288,7 @@
           console.log("288", gapi.auth2);
 
           authInstance = gapi.auth2.getAuthInstance();
+          console.log("291: ", authInstance)
           authInstance.isSignedIn.listen(function () {
               console.log('authUpdate()');
               console.log(arguments);
