@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  </head>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <!-- we import arjs version without NFT but with marker + location based support -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -282,6 +285,7 @@
               client_id: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
           });
           console.log("283: ", auth2);
+          console.log("288". gapi.auth2);
 
           authInstance = gapi.auth2.getAuthInstance();
           authInstance.isSignedIn.listen(function () {
