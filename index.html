@@ -279,7 +279,7 @@
         .addEventListener("click", function () {
           capture();
         });
-      gapi.load('auth2', function() {
+      gapi.load('auth2', async function() {
           console.log('loadAuth2()');
           auth2 = gapi.auth2.init({
               client_id: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
@@ -289,10 +289,11 @@
 
           authInstance = gapi.auth2.getAuthInstance();
           console.log("291: ", authInstance)
-          authInstance.isSignedIn.listen(function () {
-              console.log('authUpdate()');
-              console.log(arguments);
-          });
+          const result = await authInstance.isSignedIn.listen();
+          //  (function () {
+          //     console.log('authUpdate()');
+          //     console.log(arguments);
+          // });
       });
     };
     
