@@ -300,17 +300,25 @@
     async function uploadImage(base64){
       var storage = firebase.storage();
       const file = b64toBlob(base64.split(';base64,')[1]);
+      console.log("303: ", file);
+      console.log("304: ", JSON.stringify(file))
+      console.log("305: ", URL.createObjectURL(file));
+      // const formData = new FormData();
+      // formData.append('image', file);
+      // console.log(formData)
       var storageref=storage.ref();
       var thisref=storageref.child("image/png").child("test.png").put(file);
       // TODO: Try to upload directly to google drive instead of firebase -> In functia din app script nu o sa mai am nevoie sa iau fisierul din firebase
+      return file;
     }
-    
+
     const capture = async () => {
       const webcamElement = document.getElementById('webcam');
       const canvas = document.getElementById("canvas");
       canvas.getContext('2d').drawImage(webcamElement, 0, 0, canvas.width, canvas.height);
    	  let image_data_url = canvas.toDataURL('image/jpeg');
-      await uploadImage(image_data_url);
+      const file = await uploadImage(image_data_url);
+      console.log("321: ", file);
       alert("Uploaded image")
       
       var url = `https://script.google.com/macros/s/AKfycbxebhtQBjtNfGMO_3Bium-SuIB4Bs6YLxamDwOIgfvC/exec?callback=resultServer&caller=Vasi`;
@@ -420,14 +428,10 @@
       </a-marker> -->
       <a-marker type='pattern' url='./pattern-C209.patt'>
         <a-box src="./C209orar.JPG"></a-box>
-        <!-- <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box> -->
         <!-- <a-image>
           <img src="./C209orar.JPG" style="transform: scaleX(-1) scaleY(-1);">
           <img src="./C209orar.JPG">
         </a-image> -->
-        <!-- <a-assets>
-          <img src="./C209orar.JPG">
-        </a-assets> -->
       </a-marker>
 
       <!--<a-entity camera id='webcam'></a-entity>-->
