@@ -359,7 +359,13 @@
       console.log("GAPI CLIENT: ", gapi.client)
       console.log("AUTH INSTANCE:", authInstance)
 
-      var request = await gapi.client.request({
+      var request = await gapi.auth2.authorize({
+        '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
+        prompt: 'none',
+        response_type: 'permission', // Access Token.
+        // scope: 'CALENDAR_SCOPE',
+        // login_hint: credential.id
+      }, function(result) {}).request({
         'auth': authInstance,
         'path': '/upload/drive/v2/files',
         // 'path': 'https://drive.google.com/drive/u/0/my-drive',
