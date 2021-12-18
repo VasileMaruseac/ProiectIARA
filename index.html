@@ -325,8 +325,8 @@
       console.log("303: ", file);
       console.log("304: ", JSON.stringify(file))
 
-      const resultOCR = await Tesseract.recognize(file, 'eng');
-      console.log("329: ", resultOCR);
+      const resultOCR = await Tesseract.recognize(file, 'ron');
+      alert("329: "+ resultOCR.data.text);
       // const objectURL = URL.createObjectURL(file)
       // console.log("305: ", objectURL);
 
