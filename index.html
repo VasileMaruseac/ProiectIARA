@@ -280,21 +280,21 @@
         .addEventListener("click", function () {
           capture();
         });
-      // gapi.load('auth2', async function() {
-      //     console.log('loadAuth2()');
-      //     auth2 = gapi.auth2.init({
-      //         client_id: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
-      //     });
-      //     console.log("283: ", auth2);
-      //     console.log("288", gapi.auth2);
+      gapi.load('auth2', async function() {
+          console.log('loadAuth2()');
+          auth2 = gapi.auth2.init({
+              client_id: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
+          });
+          console.log("283: ", auth2);
+          console.log("288", gapi.auth2);
 
-      //     authInstance = gapi.auth2.getAuthInstance();
-      //     console.log("291: ", authInstance)
-      //     authInstance.isSignedIn.listen(function () {
-      //         console.log('authUpdate()');
-      //         console.log(arguments);
-      //     });
-      // });
+          authInstance = gapi.auth2.getAuthInstance();
+          console.log("291: ", authInstance)
+          authInstance.isSignedIn.listen(function () {
+              console.log('authUpdate()');
+              console.log(arguments);
+          });
+      });
     };
     
     const b64toBlob = (b64Data, contentType = 'image/png', sliceSize = 512) => {
@@ -390,14 +390,14 @@
 //     // 'parents': ['### folder ID ###'], // Folder ID at Google Drive
 // };
 
-// console.log("GAPI", gapi)
-// console.log("AUTH: ", gapi.auth);
-// console.log("383: ", gapi.auth2)
-// console.log("384: ", gapi.auth2.getAuthInstance())
-// console.log("385: ", gapi.auth2.getAuthInstance().currentUser)
-// console.log("386: ", gapi.auth2.getAuthInstance().currentUser.get())
-// console.log("387: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse())
-// console.log("388: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token)
+console.log("GAPI", gapi)
+console.log("AUTH: ", gapi.auth);
+console.log("383: ", gapi.auth2)
+console.log("384: ", gapi.auth2.getAuthInstance())
+console.log("385: ", gapi.auth2.getAuthInstance().currentUser)
+console.log("386: ", gapi.auth2.getAuthInstance().currentUser.get())
+console.log("387: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse())
+console.log("388: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token)
 
 // // console.log("GET TOKEN: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,  gapi.auth.getToken())
 // // console.log("TOKEN: ", gapi.auth.getToken().access_token)
