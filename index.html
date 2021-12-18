@@ -356,9 +356,9 @@
       console.log("GAPI: ", gapi)
       console.log("GAPI CLIENT: ", gapi.client)
 
-      var request = gapi.client.request({
-        // 'path': '/upload/drive/v2/files',
-        'path': 'https://drive.google.com/drive/u/0/my-drive',
+      var request = await gapi.client.request({
+        'path': '/upload/drive/v2/files',
+        // 'path': 'https://drive.google.com/drive/u/0/my-drive',
         'method': 'POST',
         'params': {'uploadType': 'multipart'},
         'headers': {
