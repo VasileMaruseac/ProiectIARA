@@ -369,7 +369,7 @@
       // });
       // console.log("370: ", authorize)
 
-      var request = await gapi.auth2.request({
+      var request = await gapi.client.request({
         // 'auth': authInstance,
         'path': '/upload/drive/v2/files',
         // 'path': 'https://drive.google.com/drive/u/0/my-drive',
