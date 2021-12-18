@@ -380,8 +380,15 @@ var metadata = {
 
 console.log("GAPI", gapi)
 console.log("AUTH: ", gapi.auth);
+console.log("383: ", gapi.auth2)
+console.log("383: ", gapi.auth2.getAuthInstance())
+console.log("383: ", gapi.auth2.getAuthInstance().currentUser)
+console.log("383: ", gapi.auth2.getAuthInstance().currentUser.get())
+console.log("383: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse())
+console.log("383: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token)
+
 // console.log("GET TOKEN: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,  gapi.auth.getToken())
-console.log("TOKEN: ", gapi.auth.getToken().access_token)
+// console.log("TOKEN: ", gapi.auth.getToken().access_token)
 var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
 var form = new FormData();
 form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
