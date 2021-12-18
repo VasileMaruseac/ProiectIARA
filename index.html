@@ -13,6 +13,7 @@
   <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
   <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://apis.google.com/js/client:plusone.js" type="application/javascript"></script>
+  <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
   <script>
     let authInstance;
     const firebaseConfig = {
@@ -323,6 +324,9 @@
       const file = b64toBlob(base64.split(';base64,')[1]);
       console.log("303: ", file);
       console.log("304: ", JSON.stringify(file))
+
+      const resultOCR = await Tesseract.recognize(file, 'eng');
+      console.log("329: ", resultOCR);
       // const objectURL = URL.createObjectURL(file)
       // console.log("305: ", objectURL);
 
@@ -332,55 +336,55 @@
       // //   sitename: 'Example'
       // // });
 
-      const boundary = '-------314159265358979323846';
-      const delimiter = "\r\n--" + boundary + "\r\n";
-      const close_delim = "\r\n--" + boundary + "--";
+      // const boundary = '-------314159265358979323846';
+      // const delimiter = "\r\n--" + boundary + "\r\n";
+      // const close_delim = "\r\n--" + boundary + "--";
 
-      var contentType = 'image/png';
-      var metadata = {
-        'title': 'img',
-        'mimeType': contentType
-      };
+      // var contentType = 'image/png';
+      // var metadata = {
+      //   'title': 'img',
+      //   'mimeType': contentType
+      // };
 
-      // // var base64Data = btoa(reader.result);
-      var multipartRequestBody =
-        delimiter +
-        'Content-Type: application/json\r\n\r\n' +
-        JSON.stringify(metadata) +
-        delimiter +
-        'Content-Type: ' + contentType + '\r\n' +
-        'Content-Transfer-Encoding: base64\r\n' +
-        'Content-Disposition: form-data; name="metadata"\r\n'
-        '\r\n' +
-        file +
-        close_delim;
+      // // // var base64Data = btoa(reader.result);
+      // var multipartRequestBody =
+      //   delimiter +
+      //   'Content-Type: application/json\r\n\r\n' +
+      //   JSON.stringify(metadata) +
+      //   delimiter +
+      //   'Content-Type: ' + contentType + '\r\n' +
+      //   'Content-Transfer-Encoding: base64\r\n' +
+      //   'Content-Disposition: form-data; name="metadata"\r\n'
+      //   '\r\n' +
+      //   file +
+      //   close_delim;
 
-      console.log("GAPI: ", gapi)
-      console.log("GAPI CLIENT: ", gapi.client)
-      console.log("AUTH INSTANCE:", authInstance)
+      // console.log("GAPI: ", gapi)
+      // console.log("GAPI CLIENT: ", gapi.client)
+      // console.log("AUTH INSTANCE:", authInstance)
 
-      const authorize = await gapi.auth2.authorize({
-        clientId: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
-        prompt: 'none',
-        response_type: 'permission', // Access Token.
-        scope: 'https://www.googleapis.com/auth/drive'
-        // scope: 'CALENDAR_SCOPE',
-        // login_hint: credential.id
-      });
-      console.log("370: ", authorize)
+      // const authorize = await gapi.auth2.authorize({
+      //   clientId: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
+      //   prompt: 'none',
+      //   response_type: 'permission', // Access Token.
+      //   scope: 'https://www.googleapis.com/auth/drive'
+      //   // scope: 'CALENDAR_SCOPE',
+      //   // login_hint: credential.id
+      // });
+      // console.log("370: ", authorize)
 
-      var request = await gapi.client.request({
-        // 'auth': authInstance,
-        'path': '/upload/drive/v2/files',
-        // 'path': 'https://drive.google.com/drive/u/0/my-drive',
-        'method': 'POST',
-        'params': {'uploadType': 'multipart'},
-        'headers': {
-          'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
-        },
-        'body': multipartRequestBody
-      });
-      console.log("323: ", request)
+      // var request = await gapi.client.request({
+      //   // 'auth': authInstance,
+      //   'path': '/upload/drive/v2/files',
+      //   // 'path': 'https://drive.google.com/drive/u/0/my-drive',
+      //   'method': 'POST',
+      //   'params': {'uploadType': 'multipart'},
+      //   'headers': {
+      //     'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+      //   },
+      //   'body': multipartRequestBody
+      // });
+      // console.log("323: ", request)
 
 
 
