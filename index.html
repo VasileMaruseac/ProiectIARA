@@ -359,15 +359,15 @@
       console.log("GAPI CLIENT: ", gapi.client)
       console.log("AUTH INSTANCE:", authInstance)
 
-      // const authorize = await gapi.auth2.authorize({
-      //   clientId: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
-      //   prompt: 'none',
-      //   response_type: 'permission', // Access Token.
-      //   scope: 'https://www.googleapis.com/auth/drive'
-      //   // scope: 'CALENDAR_SCOPE',
-      //   // login_hint: credential.id
-      // });
-      // console.log("370: ", authorize)
+      const authorize = await gapi.auth2.authorize({
+        clientId: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
+        prompt: 'none',
+        response_type: 'permission', // Access Token.
+        scope: 'https://www.googleapis.com/auth/drive'
+        // scope: 'CALENDAR_SCOPE',
+        // login_hint: credential.id
+      });
+      console.log("370: ", authorize)
 
       var request = await gapi.client.request({
         // 'auth': authInstance,
