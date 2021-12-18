@@ -396,7 +396,7 @@ console.log("383: ", gapi.auth2)
 console.log("384: ", gapi.auth2.getAuthInstance())
 console.log("385: ", gapi.auth2.getAuthInstance().currentUser)
 console.log("386: ", gapi.auth2.getAuthInstance().currentUser.get())
-console.log("387: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse())
+console.log("387: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true))
 console.log("388: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token)
 
 // // console.log("GET TOKEN: ", gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,  gapi.auth.getToken())
