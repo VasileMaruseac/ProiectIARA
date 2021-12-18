@@ -360,7 +360,7 @@
       console.log("AUTH INSTANCE:", authInstance)
 
       var request = await gapi.auth2.authorize({
-        '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
+        clientId: '130637596417-q3rj5mtu2sjohoito882plrkq1hvvb1p.apps.googleusercontent.com',
         prompt: 'none',
         response_type: 'permission', // Access Token.
         // scope: 'CALENDAR_SCOPE',
