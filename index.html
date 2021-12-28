@@ -295,11 +295,11 @@
     }
 
     //  uploading file in storage
-    function uploadImage(base64){
+    async function uploadImage(base64){
       var storage = firebase.storage();
       const file = b64toBlob(base64.split(';base64,')[1]);
       var storageref=storage.ref();
-      var thisref=storageref.child("image/png").child("test.png").put(file);
+      var thisref=await storageref.child("image/png").child("test.png").put(file);
     }
 
     const capture = async () => {
@@ -307,7 +307,7 @@
       const canvas = document.getElementById("canvas");
       canvas.getContext('2d').drawImage(webcamElement, 0, 0, canvas.width, canvas.height);
    	  let image_data_url = canvas.toDataURL('image/jpeg');
-      uploadImage(image_data_url);
+      await uploadImage(image_data_url);
       // alert("Uploaded image")
       
       var url = `https://script.google.com/macros/s/AKfycbxebhtQBjtNfGMO_3Bium-SuIB4Bs6YLxamDwOIgfvC/exec?callback=resultServer&caller=Vasi`;
